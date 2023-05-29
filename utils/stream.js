@@ -30,6 +30,7 @@ export async function OpenAIStream(payload) {
         stream: true
     }
 
+     console.log("process.env.OPEN_AI_KEYprocess.env.OPEN_AI_KEY" , process.env.OPEN_AI_KEY);
     const res = await fetch("https://api.openai.com/v1/completions", {
         headers: {
             "Content-Type": "application/json",
@@ -39,6 +40,7 @@ export async function OpenAIStream(payload) {
         body: JSON.stringify(config),
     })
 
+     
     const stream = new ReadableStream({
         async start(controller) {
             // callback

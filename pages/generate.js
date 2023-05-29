@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const App = () => {
+
   const [formData, setFormData] = useState({
     company: '',
     name: '',
@@ -37,7 +38,7 @@ const App = () => {
     try {
       const result = await fetch("/api/generate", {
         method: "POST",
-        headers: {
+        headers: { 
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -99,7 +100,7 @@ const App = () => {
   return (
     <>
       <div className={styles.container}>
-        <Header />
+        {/* <Header /> */}
         <ToastContainer />
         <div className={styles.wrapper}>
           <div className={styles.header}>
