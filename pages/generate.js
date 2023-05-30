@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Button from '../components/Button';
 import Loader from '../components/Loader';
 import { ToastContainer, toast } from 'react-toastify';
+import ReactDropZone from '../components/ReactDropZone'
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -29,6 +30,8 @@ const App = () => {
     });
   }
 
+
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -101,12 +104,30 @@ const App = () => {
     <>
       <div className={styles.container}>
         {/* <Header /> */}
+        
         <ToastContainer />
+      <div style={{
+         border: "5px solid",
+         margin: "auto",
+         width: "50%",
+         padding:" 10px",
+         textAlign: "center",
+         border: "3px solid green",
+      }}>
+       <ReactDropZone />
+     
+
+      </div>
+
+
+  
+  
+           
         <div className={styles.wrapper}>
           <div className={styles.header}>
             <p>Generate a <span>Cover Letter</span> in seconds.</p>
           </div>
-          <form className={styles.form} onSubmit={handleSubmit}>
+          <form className={styles.form} onSubmit={handleSubmit} >
             <label>
               Company:
               <input type="text" name="company" value={formData.company} onChange={handleChange} />

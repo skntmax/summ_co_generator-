@@ -12,6 +12,7 @@ export default function Document() {
           name="description"
           content="Generate your next Cover letter in seconds."
         />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"></link>
         <meta property="og:site_name" content="https://cover-letter-generator-alpha.vercel.app/" />
         <meta
           property="og:description"

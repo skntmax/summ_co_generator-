@@ -3,21 +3,38 @@ import {
 } from "eventsource-parser";
 
 
+
 export async function OpenAIStream(payload) {
     const encoder = new TextEncoder();
     const decoder = new TextDecoder();
-
     let counter = 0;
 
-    const { company, experience, skills, name, position } = payload.formData;
-
-
-    const prompt = `Hello, AI! I'm a cover letter writer and I need your help crafting a perfect 
+    const { company, experience, skills, name, email , position , isSummary  } = payload.formData;
+      console.log(payload.formData);
+    
+  let prompt = `Hello, AI! I'm a cover letter writer and I need your help crafting a perfect 
   letter for a job seeker named ${name}. They're applying to work at ${company} as a ${position}, and they 
   have ${experience} years of experience and the following skills: ${skills}. 
   Can you please write a cover letter that highlights their relevant experience and skills, 
-  and explains why they're a great fit for the position? Make it engaging and persuasive, 
-  but keep it professional. Thanks!`
+  and explains why they're a great fit for the posit    ion? Make it engaging and persuasive, 
+  but keep it professional. Thanks! `
+
+   if(isSummary=="true") {
+    prompt = `Hello, AI! please generate a summary based on name ,email ,  skills and  experience mentioned below 
+    name = ${name}
+    experience=${experience}
+    skills=${skills}
+    email:${email}
+    Make it engaging and persuasive, 
+    but keep it professional. Thanks! 
+   `
+
+   }
+
+   console.log(prompt)
+
+   
+
 
     const config = {
         prompt,
