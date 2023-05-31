@@ -9,8 +9,8 @@ export async function OpenAIStream(payload) {
     const decoder = new TextDecoder();
     let counter = 0;
 
-    const { company, experience, skills, name, email , position , isSummary  } = payload.formData;
-      console.log(payload.formData);
+    const { company, experience, skills, name, email , position , isSummary  ,word_count } = payload.formData;
+      
     
   let prompt = `Hello, AI! I'm a cover letter writer and I need your help crafting a perfect 
   letter for a job seeker named ${name}. They're applying to work at ${company} as a ${position}, and they 
@@ -20,7 +20,7 @@ export async function OpenAIStream(payload) {
   but keep it professional. Thanks! `
 
    if(isSummary=="true") {
-    prompt = `Hello, AI! please generate a summary based on name ,email ,  skills and  experience mentioned below 
+    prompt = `Hello, AI! please generate a summary based on name ,email ,  skills and  experience mentioned below of word limit ${word_count}  
     name = ${name}
     experience=${experience}
     skills=${skills}
@@ -28,15 +28,11 @@ export async function OpenAIStream(payload) {
     Make it engaging and persuasive, 
     but keep it professional. Thanks! 
    `
-
    }
 
    console.log(prompt)
 
-   
-
-
-    const config = {
+       const config = {
         prompt,
         temperature: 0.7,
         max_tokens: 600,

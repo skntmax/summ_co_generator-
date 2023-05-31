@@ -7,11 +7,12 @@ function summary() {
    experience:[] ,
    exp:0 ,
    selecte_file:undefined , 
-  cv_data:null
+  cv_data:null,
+  word_count:0
   });
    
 
-const [res , setRes ] = useState();
+const [res , setRes ] = useState("");
   
 
   
@@ -25,9 +26,10 @@ const [res , setRes ] = useState();
     formData.append('email' ,cv_data.email)
     formData.append('experience' ,cv_data.experience)
     formData.append('skills' ,cv_data.languages)
-    formData.append('isSummary' ,"true")
-    formData.append('company' ,"")
-    formData.append('position' ,"")
+    formData.append('isSummary' ,"true" )
+    formData.append('company' , "" )
+    formData.append('position' , "" )
+    formData.append('word_count' , data.word_count )
     
     let model = {}
     for(var [key , value ] of formData.entries()) {
@@ -89,9 +91,6 @@ const [res , setRes ] = useState();
     setData({...data  , selecte_file:file })
 
     
-      
-   
-   
   
   } 
 
@@ -133,8 +132,8 @@ const [res , setRes ] = useState();
   
       return (
         <React.Fragment>
-    <br/><br/>{name?"NAME:"+name:""}<br/><br/><br/> {email?"EMAIL:"+email:""} <br/><br/><br/> {experience?"Experience:"+experience:""} <br/><br/><br/> {languages?"Languages:"+languages:""} 
-                <br/><br/><br/> { education?"Education:"+education:""} <br/><br/><br/> {objectives?"Objectives"+objectives:""} <br/><br/><br/> {projects?"Projects"+projects:""} <br/><br/><br/> {skills?"skills"+skills:""} <br/><br/><br/> {summary?"Summary"+summary:""}
+    <br/><br/>{name?"NAME:  "+name:""}<br/><br/><br/> {email?"EMAIL:  "+email:""} <br/><br/><br/> {experience?"Experience:  "+experience:""} <br/><br/><br/> {languages?"Skills:  "+languages:""} 
+                <br/><br/><br/> { education?"Education:  "+education:""} <br/><br/><br/> {objectives?"Objectives:  "+objectives:""} <br/><br/><br/> {projects?"Projects:  "+projects:""} <br/><br/><br/> {skills?"skills:  "+skills:""} <br/><br/><br/> {summary?"Summary:  "+summary:""}
 
         </React.Fragment>
       )
@@ -159,8 +158,12 @@ const [res , setRes ] = useState();
     </div>
     <div className="col">
 
+    <input name="word_count" value={data.word_count} onChange={(e)=> setData({...data ,word_count:e.target.value })}  placeholder=' word count ' />
     <button vaule="getSummary" onClick={handleSubmit}  > generate summary </button>    
-    {res}
+    
+
+    <textarea className="form-control my-5" id="exampleFormControlTextarea1" rows="5" value={res}></textarea>
+
     </div>
     
     <div className="w-100"></div>

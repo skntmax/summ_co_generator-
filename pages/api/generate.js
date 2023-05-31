@@ -6,7 +6,6 @@ export const config = {
 
 export default async function handler(req, res) {
   const body = await req.json();
-  console.log("body >>>"  ,  body  )
   const stream = await OpenAIStream(body);
   return new Response(stream);
 }
