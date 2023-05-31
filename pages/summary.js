@@ -8,7 +8,8 @@ function summary() {
    exp:0 ,
    selecte_file:undefined , 
   cv_data:null,
-  word_count:0
+  word_count:0,
+  list:[]
   });
    
 
@@ -17,7 +18,7 @@ const [res , setRes ] = useState("");
 
   
   const handleSubmit = async (e) => {
- debugger
+
    
        const {cv_data}  = data 
     let formData = new FormData()
@@ -87,7 +88,6 @@ const [res , setRes ] = useState("");
     let file = e.target.files[0]
     console.log(file);
    
-
     setData({...data  , selecte_file:file })
 
     
@@ -160,9 +160,52 @@ const [res , setRes ] = useState("");
 
     <input name="word_count" value={data.word_count} onChange={(e)=> setData({...data ,word_count:e.target.value })}  placeholder=' word count ' />
     <button vaule="getSummary" onClick={handleSubmit}  > generate summary </button>    
-    
+    <textarea className="form-control mt-5" id="exampleFormControlTextarea1" rows="5" value={res}></textarea>
+    <div class="d-grid gap-2">
+  <button className="btn btn-primary" type="button" onClick={()=>{
+    debugger
+    let updatedSummary = [ ...data.list , res ]
+    setData({
+      ...data , list:updatedSummary  
+    }) 
 
-    <textarea className="form-control my-5" id="exampleFormControlTextarea1" rows="5" value={res}></textarea>
+    setRes("")
+
+  }}> Save Profile summary</button>
+</div>
+
+    <div className="accordion" id="accordionExample">
+  
+  {data.list  ? data.list.map((ele , index)=>{
+     
+     return (
+      <React.Fragment>
+
+      <div key={index} className="accordion-item">
+      <h2 className="accordion-header">
+        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          {index+1}
+        </button>
+      </h2>
+  
+      <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+        <div className="accordion-body">
+        
+        <div className="badge bg-primary text-wrap" >
+              {ele}
+        </div>
+        
+        </div>
+      </div>
+    </div>
+      </React.Fragment>
+    
+     )
+  }):""  }
+  
+
+</div>
+
 
     </div>
     
