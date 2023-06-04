@@ -20,6 +20,7 @@ export default function Document() {
           property="og:description"
           content="Generate your next Cover letter in seconds."
         />
+        <script src="https://cdn.jsdelivr.net/npm/@grammarly/editor-sdk?clientId=client_CibxQfBTU95X1agEii29TC"></script>
       </Head>
       <body>
         <Main />

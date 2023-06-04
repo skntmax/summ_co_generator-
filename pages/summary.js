@@ -1,5 +1,8 @@
-import React ,{useState} from 'react';
+import React ,{useState } from 'react';
 import axios from 'axios';
+
+
+
 function summary() {
   const [data, setData] = useState({
    candidateName:"" ,
@@ -134,10 +137,14 @@ const [res , setRes ] = useState("");
   
   }
    
-    return (
+ 
+
+
+
+
+  return (
    
     <div>
-  
 
     <div className="container"  >
   <div className="row">
@@ -154,7 +161,19 @@ const [res , setRes ] = useState("");
 
     <input name="word_count" value={data.word_count} onChange={(e)=> setData({...data ,word_count:e.target.value })}  placeholder=' word count ' />
     <button vaule="getSummary" onClick={handleSubmit}  > generate summary </button>    
-    <textarea className="form-control mt-5" id="exampleFormControlTextarea1" rows="5" value={res}></textarea>
+     
+
+    <grammarly-editor-plugin>
+    <textarea className="form-control mt-5" id="exampleFormControlTextarea1" rows="5"
+    value={res}
+    onChange={(e)=>{
+       setRes(e.target.value)
+    }}
+    
+    ></textarea>
+</grammarly-editor-plugin>
+
+    
     <div class="d-grid gap-2">
   <button className="btn btn-primary mt-2" type="button" onClick={()=>{
     debugger
@@ -178,7 +197,9 @@ const [res , setRes ] = useState("");
       <div key={index} className="accordion-item">
       <h2 className="accordion-header">
         <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          {index+1}
+           
+            {index+1}
+            
         </button>
       </h2>
   
