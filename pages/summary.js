@@ -12,10 +12,7 @@ function summary() {
   list:[]
   });
    
-
 const [res , setRes ] = useState("");
-  
-
   
   const handleSubmit = async (e) => {
 
@@ -106,10 +103,7 @@ const [res , setRes ] = useState("");
     //  let url = process.env.NEXT_APP_BASE_URL+"/root"
       let url = "http://localhost:2000/root" 
       let result = await axios.post(url ,formData)
-       
       const {data:{parts}}  =result
-      
-       console.log(parts ); 
 
       setData({...data , cv_data:parts})
 
@@ -145,7 +139,7 @@ const [res , setRes ] = useState("");
     <div>
   
 
-    <div className="container">
+    <div className="container"  >
   <div className="row">
   
     <div className="col">
@@ -162,7 +156,7 @@ const [res , setRes ] = useState("");
     <button vaule="getSummary" onClick={handleSubmit}  > generate summary </button>    
     <textarea className="form-control mt-5" id="exampleFormControlTextarea1" rows="5" value={res}></textarea>
     <div class="d-grid gap-2">
-  <button className="btn btn-primary" type="button" onClick={()=>{
+  <button className="btn btn-primary mt-2" type="button" onClick={()=>{
     debugger
     let updatedSummary = [ ...data.list , res ]
     setData({
