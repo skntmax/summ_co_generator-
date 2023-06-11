@@ -164,13 +164,14 @@ const [res , setRes ] = useState("");
      
 
     <grammarly-editor-plugin>
+    
     <textarea className="form-control mt-5" id="exampleFormControlTextarea1" rows="5"
     value={res}
     onChange={(e)=>{
        setRes(e.target.value)
-    }}
-    
-    ></textarea>
+    }}>
+
+    </textarea>
 </grammarly-editor-plugin>
 
     
