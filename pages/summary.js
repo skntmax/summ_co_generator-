@@ -160,10 +160,10 @@ const [res , setRes ] = useState("");
     <div className="col">
 
     <input name="word_count" value={data.word_count} onChange={(e)=> setData({...data ,word_count:e.target.value })}  placeholder=' word count ' />
-    <button vaule="getSummary" onClick={handleSubmit}  > generate summary </button>    
-     
-
-    <grammarly-editor-plugin>
+    <button vaule="getSummary" onClick={handleSubmit} > generate summary </button>    
+ 
+                       
+    <grammarly-editor-plugin> 
     
     <textarea className="form-control mt-5" id="exampleFormControlTextarea1" rows="5"
     value={res}
