@@ -279,7 +279,7 @@ const [paraphrase , setParaPhrase ] = useState("");
     <div class="d-grid gap-2">
   <button className="btn btn-primary mt-2" type="button" onClick={()=>{
     
-    let updatedSummary = [ ...data.list , res ]
+    let updatedSummary = [ ...data.list , paraphrase ]
     setData({
       ...data , list:updatedSummary  
     }) 
