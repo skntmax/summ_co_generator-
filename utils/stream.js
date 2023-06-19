@@ -9,8 +9,10 @@ export async function OpenAIStream(payload) {
     const decoder = new TextDecoder();
     let counter = 0;
 
-    const { company, experience, skills, name, email , position , isSummary  ,word_count } = payload.formData;
+    const { company, experience, skills, name, email , position , isSummary  , word_count , grammerly_set_data , grammerly_generator  } = payload.formData;
       
+
+ 
     
   let prompt = `Hello, AI! I'm a cover letter writer and I need your help crafting a perfect 
   letter for a job seeker named ${name}. They're applying to work at ${company} as a ${position}, and they 
@@ -18,6 +20,7 @@ export async function OpenAIStream(payload) {
   Can you please write a cover letter that highlights their relevant experience and skills, 
   and explains why they're a great fit for the posit    ion? Make it engaging and persuasive, 
   but keep it professional. Thanks! `
+
 
    if(isSummary=="true") {
     prompt = `Hello, AI! please generate a summary based on name ,email ,  skills and  experience mentioned below of word limit ${word_count}  
@@ -30,7 +33,13 @@ export async function OpenAIStream(payload) {
    `
    }
 
-   console.log(prompt)
+
+   if(grammerly_generator==true) {
+    prompt = ` please modify this paragraph in formal mode '${grammerly_set_data}' `
+   }
+
+
+   console.log("final prompt " , prompt)
 
        const config = {
         prompt,
@@ -44,6 +53,7 @@ export async function OpenAIStream(payload) {
     }
 
      console.log("process.env.OPEN_AI_KEYprocess.env.OPEN_AI_KEY" , process.env.OPEN_AI_KEY);
+      
     const res = await fetch("https://api.openai.com/v1/completions", {
         headers: {
             "Content-Type": "application/json",
@@ -54,7 +64,9 @@ export async function OpenAIStream(payload) {
     })
 
      
-    const stream = new ReadableStream({
+
+    const stream = new ReadableStream( {
+
         async start(controller) {
             // callback
             function onParse(event) {
@@ -92,5 +104,7 @@ export async function OpenAIStream(payload) {
         },
     });
 
-    return stream;
+
+
+    return stream ;
 }

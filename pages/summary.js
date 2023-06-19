@@ -1,7 +1,6 @@
 import React ,{useState } from 'react';
+import FinalSummary from './../components/formalised'
 import axios from 'axios';
-
-
 
 function summary() {
   const [data, setData] = useState({
@@ -14,8 +13,11 @@ function summary() {
   word_count:0,
   list:[]
   });
+
+
    
 const [res , setRes ] = useState("");
+const [grammerly_data , setGrammerlyData ] = useState("");
   
   const handleSubmit = async (e) => {
 
@@ -49,7 +51,7 @@ const [res , setRes ] = useState("");
           formData:model,
         }),
       })
-      
+       
       if (!result.ok) {
         setError("Check your network and try again");
       }
@@ -87,11 +89,8 @@ const [res , setRes ] = useState("");
    
     let file = e.target.files[0]
     console.log(file);
-   
     setData({...data  , selecte_file:file })
-
     
-  
   } 
 
 
@@ -140,6 +139,81 @@ const [res , setRes ] = useState("");
  
 
 
+  async function getGrammerlyGeneratedData(para) {
+     
+ 
+     try{
+      
+      let model = {
+        grammerly_generator:true ,
+        grammerly_set_data:para  
+        }
+       
+       
+
+      // const {data:{original , paraphrased }}  = await  axios.post('https://api.apilayer.com/paraphraser' , {
+      //   ['data-raw']: `
+      //   Akhil Shukla is a Senior Software Developer at Societe Generale, Bangalore with vast experience in developing and deploying single page applications. He has expertise in various technologies such as Javascript, Python, SQL, HTML, CSS, React JS, VUE JS 3, Typescript, Django, Node JS, PostgreSQL, SQLite, MySQL, Firebase Realtime Database, Robot,Pytest, Jest, ddt, Firebase, Bitbucket, Github, Netlify, AWS ECS, EC2, Kubernetes (K8), Docker, Nginx, Apache, Jenkins and Git. He has previously worked for Flipkart Internet Pvt Ltd where he developed the Avenges Dashboard using Python Django and React JS and for Tibrox Tech Solutions, Bangalore where he developed the ERP for ecommerce store. Akhil's email address is akhil.shukla12@gmail.com. `
+      // } ,
+      //  { headers:{
+      //   apikey:'qipokIaw94o1y1d9g5EnDT7hJEV2lqid'
+      // }} )
+
+       
+      //  console.log("ai generated summary " ,  original  );
+      //  console.log("ai generated summary " ,    paraphrased);
+     
+       
+      const result = await fetch("/api/generate", {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          formData:model,
+        }),
+      })
+       
+      if (!result.ok) {
+        setError("Check your network and try again");
+      }
+  
+      debugger
+      // This data is a ReadableStream
+      const data = result.body;
+      if (!data) {
+        return;
+      }
+  
+      const reader = data.getReader();
+      const decoder = new TextDecoder();
+      let done = false;
+
+      while (!done) {
+        const { value, done: doneReading } = await reader.read();
+        done = doneReading;
+        const chunkValue = decoder.decode(value);
+         console.log("chunkValuechunkValue" , chunkValue );
+         
+         setGrammerlyData((prev)=> prev+chunkValue)
+      
+      }
+      
+
+
+
+
+     }catch(err) {
+
+      console.error("err", err);
+       
+     }
+    
+    
+    
+  }
+
+
 
 
   return (
@@ -160,8 +234,7 @@ const [res , setRes ] = useState("");
     <div className="col">
 
     <input name="word_count" value={data.word_count} onChange={(e)=> setData({...data ,word_count:e.target.value })}  placeholder=' word count ' />
-    <button vaule="getSummary" onClick={handleSubmit} > generate summary </button>    
- 
+    <button vaule="getSummary" onClick={handleSubmit} > generate summary </button>     
                        
     <grammarly-editor-plugin> 
     
@@ -172,12 +245,23 @@ const [res , setRes ] = useState("");
     }}>
 
     </textarea>
-</grammarly-editor-plugin>
+
+    </grammarly-editor-plugin>
+
+
+         
+    <div class="d-grid gap-2">
+    <button className="btn btn-success mt-2" type="button" onClick={()=> getGrammerlyGeneratedData(res)  } > Generate using grammerly </button>
+    </div>
+     
+     
+       <FinalSummary   data ={grammerly_data} />
+
 
     
     <div class="d-grid gap-2">
   <button className="btn btn-primary mt-2" type="button" onClick={()=>{
-    debugger
+    daebugger
     let updatedSummary = [ ...data.list , res ]
     setData({
       ...data , list:updatedSummary  
