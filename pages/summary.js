@@ -18,6 +18,7 @@ function summary() {
    
 const [res , setRes ] = useState("");
 const [grammerly_data , setGrammerlyData ] = useState("");
+const [paraphrase , setParaPhrase ] = useState("");
   
   const handleSubmit = async (e) => {
 
@@ -138,6 +139,24 @@ const [grammerly_data , setGrammerlyData ] = useState("");
    
  
 
+  async function genParaPhrase(grammerly_data){
+
+
+      const {data:{original , paraphrased }}  = await  axios.post('https://api.apilayer.com/paraphraser' , {
+        
+       ['data-raw']:grammerly_data
+      } ,
+       { headers:{
+        apikey:'qipokIaw94o1y1d9g5EnDT7hJEV2lqid'
+      }} )
+
+       
+       console.log("ai generated summary " ,  original  );
+       console.log("ai generated summary " ,    paraphrased);
+        setParaPhrase(paraphrased)       
+
+  }
+
 
   async function getGrammerlyGeneratedData(para) {
      
@@ -151,17 +170,6 @@ const [grammerly_data , setGrammerlyData ] = useState("");
        
        
 
-      // const {data:{original , paraphrased }}  = await  axios.post('https://api.apilayer.com/paraphraser' , {
-      //   ['data-raw']: `
-      //   Akhil Shukla is a Senior Software Developer at Societe Generale, Bangalore with vast experience in developing and deploying single page applications. He has expertise in various technologies such as Javascript, Python, SQL, HTML, CSS, React JS, VUE JS 3, Typescript, Django, Node JS, PostgreSQL, SQLite, MySQL, Firebase Realtime Database, Robot,Pytest, Jest, ddt, Firebase, Bitbucket, Github, Netlify, AWS ECS, EC2, Kubernetes (K8), Docker, Nginx, Apache, Jenkins and Git. He has previously worked for Flipkart Internet Pvt Ltd where he developed the Avenges Dashboard using Python Django and React JS and for Tibrox Tech Solutions, Bangalore where he developed the ERP for ecommerce store. Akhil's email address is akhil.shukla12@gmail.com. `
-      // } ,
-      //  { headers:{
-      //   apikey:'qipokIaw94o1y1d9g5EnDT7hJEV2lqid'
-      // }} )
-
-       
-      //  console.log("ai generated summary " ,  original  );
-      //  console.log("ai generated summary " ,    paraphrased);
      
        
       const result = await fetch("/api/generate", {
@@ -194,14 +202,11 @@ const [grammerly_data , setGrammerlyData ] = useState("");
         done = doneReading;
         const chunkValue = decoder.decode(value);
          console.log("chunkValuechunkValue" , chunkValue );
-         
          setGrammerlyData((prev)=> prev+chunkValue)
-      
       }
       
 
-
-
+       
 
      }catch(err) {
 
@@ -258,10 +263,22 @@ const [grammerly_data , setGrammerlyData ] = useState("");
        <FinalSummary   data ={grammerly_data} />
 
 
+
+       <div class="d-grid gap-2">
+       <button className="btn btn-success mt-2" type="button" onClick={()=> genParaPhrase(grammerly_data)  } > Paraphrase it  </button>
+       </div>
+        
+
+       <FinalSummary   data ={paraphrase} />
+
+
+
     
+
+
     <div class="d-grid gap-2">
   <button className="btn btn-primary mt-2" type="button" onClick={()=>{
-    daebugger
+    
     let updatedSummary = [ ...data.list , res ]
     setData({
       ...data , list:updatedSummary  
