@@ -147,7 +147,7 @@ const [paraphrase , setParaPhrase ] = useState("");
        ['data-raw']:grammerly_data
       } ,
        { headers:{
-        apikey:'qipokIaw94o1y1d9g5EnDT7hJEV2lqid'
+        apikey:'OsTvFhCkIzFPyD2FI2geeU9UKaf0WPuv'
       }} )
 
        
@@ -256,7 +256,7 @@ const [paraphrase , setParaPhrase ] = useState("");
 
          
     <div class="d-grid gap-2">
-    <button className="btn btn-success mt-2" type="button" onClick={()=> getGrammerlyGeneratedData(res)  } > Generate using grammerly </button>
+    <button className="btn btn-success mt-2" type="button" onClick={()=> getGrammerlyGeneratedData(res)  } > make it in formal format  </button>
     </div>
      
      

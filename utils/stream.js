@@ -29,13 +29,14 @@ export async function OpenAIStream(payload) {
     skills=${skills}
     email:${email}
     Make it engaging and persuasive, 
-    but keep it professional. Thanks! 
+    but keep it professional. Thanks!
+    
    `
    }
 
 
    if(grammerly_generator==true) {
-    prompt = ` please modify this paragraph in formal mode '${grammerly_set_data}' `
+    prompt = ` please modify this paragraph in formal mode treating as first person '${grammerly_set_data}'  `
    }
 
 
@@ -84,6 +85,7 @@ export async function OpenAIStream(payload) {
                             // this is a prefix character (i.e., "\n\n"), do nothing
                             return;
                         }
+                        
                         const queue = encoder.encode(text);
                         controller.enqueue(queue);
                         counter++;
